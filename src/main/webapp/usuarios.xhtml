@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+
+	</h:head>
+	
+	<h:body>
+		<h:form id="frmUsuarios">
+			<p:growl/>
+			<p:panel header="Gestionar Usuarios">
+				<h:panelGrid columns="2" border="1">
+					<p:outputLabel value="Identificacion:"/>
+					<p:inputText id="txtIdentidicacion" binding="#{usuariosVista.txtIdentificacion}">
+						<p:ajax listener="#{usuariosVista.txtIdentificacionListener}" update="frmUsuarios" />
+					</p:inputText>					
+					
+					<p:outputLabel value="Tipo Usuario"/>
+					<p:selectOneMenu id="somTiposUsuarios" binding="#{usuariosVista.somTiposUsuarios}">
+						<f:selectItem itemValue="-1" itemLabel="--------------------------"/>
+						<f:selectItems value="#{usuariosVista.losTiposUsuariosSelectItem}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Nombre:"/>
+					<p:inputText id="txtNombre" binding="#{usuariosVista.txtNombre}" />
+					<p:outputLabel value="Login"/>
+					<p:inputText id="txtLogin" binding="#{usuariosVista.txtLogin}" />
+					<p:outputLabel value="Clave"/>
+					<p:password id="txtClave" binding="#{usuariosVista.txtClave}" />
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:panel>
+				<h:panelGrid columns="4" border="1">
+					<p:commandButton update="frmUsuarios" disabled="true" id="btnCrear" 		value="Crear"		binding="#{usuariosVista.btnCrear}"		action="#{usuariosVista.crearAction}" />
+					<p:commandButton update="frmUsuarios" disabled="true" id="btnModificar" 	value="modificar"	binding="#{usuariosVista.btnModificar}" action="#{usuariosVista.modificarAction}"/>
+					<p:commandButton update="frmUsuarios" disabled="true" id="btnBorrar" 		value="Borrar"		binding="#{usuariosVista.btnBorrar}" 	action="#{usuariosVista.borrarAction}"/>
+					<p:commandButton 									  id="btnLimpiar" 		value="Limpiar" 	action="#{usuariosVista.limpiarAction}" update="frmUsuarios" />
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:panel header="Lista usuarios">
+				<p:dataTable id="dataTableUsuarios" value="#{usuariosVista.losUsuarios}" var="usuarios" rows="5" paginator="true">
+					<p:column headerText="ID" filterBy="#{usuarios.usuCedula}" sortBy="#{usuarios.usuCedula}">
+						<p:outputLabel value="#{usuarios.usuCedula}"/>
+					</p:column>
+					<p:column headerText="NOMBRE" filterBy="#{usuarios.usuNombre}">
+						<p:outputLabel value="#{usuarios.usuNombre}"/>
+					</p:column>
+					
+					<p:column headerText="login" filterBy="#{usuarios.usuLogin}">
+						<p:outputLabel value="#{usuarios.usuLogin}"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+		</h:form>
+	</h:body>
+</html>

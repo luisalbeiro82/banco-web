@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+
+	</h:head>
+	
+	<h:body>
+		<h:form id="frmClientes">
+			<p:growl/>
+			<p:panel header="Gestionar Clientes">
+				<h:panelGrid columns="2" border="0">
+					<p:outputLabel value="Identificacion:"/>
+					<p:inputText id="txtIdentidicacion" binding="#{clientesVista.txtIdentificacion}">
+						<p:ajax listener="#{clientesVista.txtIdentificacionListener}" update="frmClientes" />
+					</p:inputText>
+					
+					<p:outputLabel value="Tipo Docuemnto"/>
+					<p:selectOneMenu id="somTiposDocumentos" binding="#{clientesVista.somTiposDocumentos}">
+						<f:selectItem itemValue="-1" itemLabel="--------------------------"/>
+						<f:selectItems value="#{clientesVista.losTiposDocumentosSelectItem}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Nombre:"/>
+					<p:inputText id="txtNombre" binding="#{clientesVista.txtNombre}" />
+					
+					<p:outputLabel value="Direccion:"/>
+					<p:inputText id="txtDireccion" binding="#{clientesVista.txtDireccion}" />
+					
+					<p:outputLabel value="Telefono:"/>
+					<p:inputText id="txtTelefono" binding="#{clientesVista.txtTelefono}" />
+					
+					<p:outputLabel value="Mail:"/>
+					<p:inputText id="txtMail" binding="#{clientesVista.txtMail}" />
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="4" border="0">
+					<p:commandButton update="frmClientes" disabled="true" id="btnCrear" 		value="Crear"		binding="#{clientesVista.btnCrear}"		action="#{clientesVista.crearAction}" />
+					<p:commandButton update="frmClientes" disabled="true" id="btnModificar" 	value="modificar"	binding="#{clientesVista.btnModificar}" action="#{clientesVista.modificarAction}"/>
+					<p:commandButton update="frmClientes" disabled="true" id="btnBorrar" 	value="Borrar"		binding="#{clientesVista.btnBorrar}" 	action="#{clientesVista.borrarAction}"/>
+					<p:commandButton id="btnLimpiar" 	value="Limpiar" action="#{clientesVista.limpiarAction}" update="frmClientes" />
+				</h:panelGrid>
+				
+			</p:panel>
+			
+			<p:panel header="Lista Clientes">
+				<p:dataTable id="dataTableClientes" value="#{clientesVista.losClientes}" var="clientes" rows="5" paginator="true">
+					<p:column headerText="ID" filterBy="#{clientesVista.cliId}" sortBy="#{clientes.cliId}">
+						<p:outputLabel value="#{clientes.cliId}"/>
+					</p:column>
+					
+					<p:column headerText="NOMBRE" filterBy="#{clientes.cliNombre}">
+						<p:outputLabel value="#{clientes.cliNombre}"/>
+					</p:column>
+					
+					<p:column headerText="DIRECCION" filterBy="#{clientes.cliDireccion}">
+						<p:outputLabel value="#{clientes.cliDireccion}"/>
+					</p:column>
+					
+					<p:column headerText="TELEFONO" filterBy="#{clientes.cliTelefono}">
+						<p:outputLabel value="#{clientes.cliTelefono}"/>
+					</p:column>
+					
+					<p:column headerText="MAIL" filterBy="#{clientes.cliMail}">
+						<p:outputLabel value="#{clientes.cliMail}"/>
+					</p:column>
+				
+				</p:dataTable>
+			</p:panel>
+			
+			
+			
+		</h:form>
+	</h:body>
+</html>
